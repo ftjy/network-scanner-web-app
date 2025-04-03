@@ -38,15 +38,7 @@ Add the following line to run the scan every 10 minutes:
 */10 * * * * nmap 192.168.1.0/24 -oN /var/www/html/nmap.html
 
 #### 2. **Create `network.php` to Display Scan Results**
-Create the `network.php` file inside `/var/www/html/`:
-
-<?php
-echo "Server Timestamp: ";
-echo date("h:i:sa");
-echo "<pre>";
-include("nmap.html");
-echo "</pre>";
-?>
+Create the `network.php` file inside `/var/www/html/`
 
 Restart Apache:
 sudo systemctl restart apache2
