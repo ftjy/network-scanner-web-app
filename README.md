@@ -26,7 +26,8 @@ This project is a simple **network scanner** that is accessible from a web brows
    sudo apt update && sudo apt install apache2 php nmap -y
    
 3. Configure **Ownership and Permissions** for security.
-   sudo chown www-data:www-data /var/www/html -R
+   sudo chown $USER:$USER /var/www/html -R
+   (replace $USER with your username)
    sudo chmod 755 /var/www/html
 
 ### Task B: Creating the Web Scanner App
@@ -55,11 +56,9 @@ Granting `777` permissions means **read, write, and execute access** for everyon
 
 ### **Secure Alternative**
 Instead of `chmod 777`, use:
-chmod 755 /var/www/html
-sudo chown www-data:www-data /var/www/html -R
+sudo chmod 755 /var/www/html
 
 - **`755`**: Owner has full access (`7`), group and others have read & execute (`5`) permissions
-- **Ownership**: Assign to www-data (Apache user) for controlled access.
 
 ---
 
