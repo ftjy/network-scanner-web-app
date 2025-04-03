@@ -43,7 +43,6 @@ Create the `network.php` file inside `/var/www/html/`:
 <?php
 echo "Server Timestamp: ";
 echo date("h:i:sa");
-
 echo "<pre>";
 include("nmap.html");
 echo "</pre>";
