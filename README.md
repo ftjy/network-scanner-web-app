@@ -31,20 +31,19 @@ This project is a simple **network scanner** that is accessible from a web brows
    sudo chmod 755 /var/www/html
 
 ### Task B: Creating the Web Scanner App
-#### 1. **Configure the Cron Job**
-Edit the crontab:
-sudo crontab -e
+1. **Configure the Cron Job**
+   sudo crontab -e
 
-Add the following line to run the scan every 10 minutes:
-*/10 * * * * nmap 192.168.1.0/24 -oN /var/www/html/nmap.html
+   Add the following line to run the scan every 10 minutes:
+   */10 * * * * nmap 192.168.1.0/24 -oN /var/www/html/nmap.html
 
-#### 2. **Create `network.php` to Display Scan Results**
-Create the `network.php` file inside `/var/www/html/`
+2. **Create `network.php` to Display Scan Results**
+   Create the `network.php` file inside `/var/www/html/`
 
-Restart Apache:
-sudo systemctl restart apache2
+   Restart Apache:
+   sudo systemctl restart apache2
 
-Now, visit `http://your-server-ip/network.php` in a browser to see the scan results.
+   Now, visit `http://your-server-ip/network.php` in a browser to see the scan results.
 
 ---
 
@@ -59,6 +58,39 @@ Instead of `chmod 777`, use:
 sudo chmod 755 /var/www/html
 
 - **`755`**: Owner has full access (`7`), group and others have read & execute (`5`) permissions
+
+## Bonus Task B: Assigning a static IP
+1.	**Find the network interface name**
+   ip a
+
+2.	**Edit the Netplan configuration file**
+   sudo vim /etc/netplan/01-netcfg.yaml
+   
+3.	**Modify the file to set a static IP**
+   network:
+     version: 2
+     renderer: networkd
+     ethernets:
+       eth0:
+         dhcp4: no
+         addresses:
+           - 192.168.1.100/24
+         gateway4: 192.168.1.1
+         nameservers:
+           addresses:
+             - 8.8.8.8
+             - 8.8.4.4
+   Replace:
+   o	eth0 with your network interface name.
+   o	192.168.1.100/24 with your desired static IP.
+   o	192.168.1.1 with your router's gateway IP.
+   o	8.8.8.8, 8.8.4.4 with your preferred DNS servers.
+  	
+5.	**Apply the changes**
+   sudo netplan apply
+
+6. **Check the new IP**
+   ip a
 
 ---
 
