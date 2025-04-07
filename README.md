@@ -21,19 +21,19 @@ This project is a simple **network scanner** that is accessible from a web brows
 
 ## Setup Guide
 ### Task A: Installing Ubuntu and Setting Up the Environment (2-3 Hours)
-1. **Install Ubuntu** via a Virtual Machine. You can follow [this guide](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine#1-overview).
+1. Install Ubuntu via a Virtual Machine. You can follow [this guide](https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine#1-overview).
 2. Install the required packages:
 
    sudo apt update && sudo apt install apache2 php nmap -y
    
-3. Configure **Ownership and Permissions** for security:
+3. Configure Ownership and Permissions for security:
 
    sudo chown $USER:$USER /var/www/html -R
    (replace $USER with your username)
    sudo chmod 755 /var/www/html
 
 ### Task B: Creating the Web Scanner App
-1. **Configure the Cron Job**
+1. Configure the Cron Job
 
    sudo crontab -e
 
@@ -41,7 +41,7 @@ This project is a simple **network scanner** that is accessible from a web brows
 
    */10 * * * * nmap 192.168.1.0/24 -oN /var/www/html/nmap.html
 
-2. **Create `network.php` to Display Scan Results**
+2. Create `network.php` to Display Scan Results
    Create the `network.php` file inside `/var/www/html/`
 
    Restart Apache:
@@ -53,7 +53,7 @@ This project is a simple **network scanner** that is accessible from a web brows
 ---
 
 ## Bonus Task A: Understanding `chmod 777`
-Granting `777` permissions means **read, write, and execute access** for everyone, which is a security risk because:
+Granting `777` permissions means read, write, and execute access for everyone, which is a security risk because:
 - Any user can modify or delete files.
 - It exposes sensitive data.
 - It can be exploited by attackers.
@@ -66,15 +66,15 @@ sudo chmod 755 /var/www/html
 - **`755`**: Owner has full access (`7`), group and others have read & execute (`5`) permissions
 
 ## Bonus Task B: Assigning a static IP
-1.	**Find the network interface name**
+1.	Find the network interface name:
 
    ip a
 
-2.	**Edit the Netplan configuration file**
+2.	Edit the Netplan configuration file:
 
    sudo vim /etc/netplan/01-netcfg.yaml
    
-3.	**Modify the file to set a static IP**
+3.	Modify the file to set a static IP:
 
    network:
      version: 2
@@ -95,13 +95,15 @@ sudo chmod 755 /var/www/html
    o	192.168.1.1 with your router's gateway IP.
    o	8.8.8.8, 8.8.4.4 with your preferred DNS servers.
   	
-5.	**Apply the changes**
+4.	Apply the changes:
 
    sudo netplan apply
 
-6. **Check the new IP**
+5. Check the new IP:
 
    ip a
+
+   Now, visit `http://your-static-ip/network.php` in a browser to see the scan results.
 
 ---
 
